@@ -72,6 +72,12 @@ namespace ClothesStore.Dapper
             //Find_Should_retrieve_existing_category_Complex(entityId);
 
             #endregion CRUD Operations Stored Procedures
+
+            #region Advanced
+
+            //GetCategoriesByIds_should_return_correct_categories();
+
+            #endregion Advanced
         }
 
         #region CRUD Operations
@@ -235,9 +241,22 @@ namespace ClothesStore.Dapper
 
         #endregion CRUD Operations Complex
 
-        #region CRUD Operations Stored Procedures
+        #region Advanced Operations
 
-        #endregion CRUD Operations Stored Procedures
+        static void GetCategoriesByIds_should_return_correct_categories()
+        {
+            // Arrange
+            var repository = CreateRepositoryAdvanced();
+
+            // Act
+            var categories = repository.GetCategoriesByIds(1, 2, 5,6);
+
+            // Assert
+            Debug.Assert(categories.Count == 4);
+            categories.Output();
+        }
+
+        #endregion Advanced Operations
 
         #region Helpers
         private static void Initialize()
@@ -255,6 +274,12 @@ namespace ClothesStore.Dapper
             //return new CategoryRepositoryContrib(config.GetConnectionString("ClothesStoreConnection"));
             return new CategoryRepositoryStoredProcedures(config.GetConnectionString("ClothesStoreConnection"));
         }
+
+        private static CategoryRepositoryAdvanced CreateRepositoryAdvanced()
+        {
+            return new CategoryRepositoryAdvanced(config.GetConnectionString("ClothesStoreConnection"));
+        }
+
         #endregion
     }
 }
