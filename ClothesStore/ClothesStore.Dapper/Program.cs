@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ClothesStore.Dapper
 {
@@ -76,8 +77,19 @@ namespace ClothesStore.Dapper
             #region Advanced
 
             //GetCategoriesByIds_should_return_correct_categories();
+            //GetTop10DynamicCategories_should_return_dynamic_categories();
+
+            // Multi Mapping
+            GetAllCategoriesWithProducts_should_return_categories_with_products();
 
             #endregion Advanced
+        }
+
+        static async Task xMain(string[] args)
+        {
+            Initialize();
+
+            await Get_all_Should_return_10_categories_async();
         }
 
         #region CRUD Operations
@@ -249,11 +261,52 @@ namespace ClothesStore.Dapper
             var repository = CreateRepositoryAdvanced();
 
             // Act
-            var categories = repository.GetCategoriesByIds(1, 2, 5,6);
+            var categories = repository.GetCategoriesByIds(1, 2, 5, 6);
 
             // Assert
             Debug.Assert(categories.Count == 4);
             categories.Output();
+        }
+
+        static void GetTop10DynamicCategories_should_return_dynamic_categories()
+        {
+            // Arrange
+            var repository = CreateRepositoryAdvanced();
+
+            // Act
+            var categories = repository.GetTop10DynamicCategories();
+
+            // Assert
+            Debug.Assert(categories.Count > 0);
+            categories.Output();
+        }
+
+        static void GetAllCategoriesWithProducts_should_return_categories_with_products()
+        {
+            // Arrange
+            var repository = CreateRepositoryAdvanced();
+
+            // Act
+            var categories = repository.GetAllCategoriesWithProducts();
+            //var categories = repository.GetAllCategoriesWithProducts_Fixed();
+
+            // Assert
+            Debug.Assert(categories.Count > 0);
+            categories.Output();
+        }
+
+        static async Task Get_all_Should_return_10_categories_async()
+        {
+            // Arrange
+            var repository = CreateRepositoryAdvanced();
+
+            // Act
+            var catalogs = await repository.GetAllAsync();
+
+            // Assert
+            Console.WriteLine($"Count: {catalogs.Count}");
+            Debug.Assert(catalogs.Count == 10);
+            catalogs.Output();
         }
 
         #endregion Advanced Operations
