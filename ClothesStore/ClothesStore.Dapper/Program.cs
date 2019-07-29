@@ -56,6 +56,22 @@ namespace ClothesStore.Dapper
             //Find_Should_retrieve_existing_category_Complex(entityId);
 
             #endregion CRUD Operations Complex
+
+            #region CRUD Operations Stored Procedures
+
+            //Insert_Should_assign_id_to_new_category_Complex();
+
+            //ICategoryRepository repository = CreateRepository();
+            //int entityId = 1010;
+            //Find_Should_retrieve_existing_category_Complex(entityId);
+
+            //Modify_Should_update_existing_category_Complex(entityId);
+            //Find_Should_retrieve_existing_category_Complex(entityId);
+
+            //Delete_Should_remove_entity(entityId);
+            //Find_Should_retrieve_existing_category_Complex(entityId);
+
+            #endregion CRUD Operations Stored Procedures
         }
 
         #region CRUD Operations
@@ -188,7 +204,7 @@ namespace ClothesStore.Dapper
             };
             Product product = new Product
             {
-                Name="Test Product"
+                Name = "Test Product"
             };
             category.Products.Add(product);
 
@@ -219,6 +235,10 @@ namespace ClothesStore.Dapper
 
         #endregion CRUD Operations Complex
 
+        #region CRUD Operations Stored Procedures
+
+        #endregion CRUD Operations Stored Procedures
+
         #region Helpers
         private static void Initialize()
         {
@@ -231,8 +251,9 @@ namespace ClothesStore.Dapper
 
         private static ICategoryRepository CreateRepository()
         {
-            return new CategoryRepository(config.GetConnectionString("ClothesStoreConnection"));
+            //return new CategoryRepository(config.GetConnectionString("ClothesStoreConnection"));
             //return new CategoryRepositoryContrib(config.GetConnectionString("ClothesStoreConnection"));
+            return new CategoryRepositoryStoredProcedures(config.GetConnectionString("ClothesStoreConnection"));
         }
         #endregion
     }
