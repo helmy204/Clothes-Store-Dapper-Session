@@ -101,3 +101,80 @@ INSERT INTO Product ([Name],CategoryId) VALUES ( 'Skirt with broderie anglaise',
 INSERT INTO Product ([Name],CategoryId) VALUES ( 'Striped tiered skirt',10)
 INSERT INTO Product ([Name],CategoryId) VALUES ( 'Denim skirt',10)
 INSERT INTO Product ([Name],CategoryId) VALUES ( 'Draped jersey skirt',10)
+
+-- Procedures
+-- GetCategory
+CREATE PROCEDURE [dbo].[GetCategory]
+	@Id INT
+AS
+BEGIN
+	SELECT [Id]
+	      ,[Name]
+	FROM [dbo].[Category]
+	WHERE Id = @Id;
+
+	SELECT [Id]
+		  ,[Name]
+	FROM [dbo].[Product]
+	WHERE CategoryId = @Id;
+END
+
+-- SaveCategory
+CREATE PROCEDURE [dbo].[SaveCategory]
+	@Id INT OUTPUT,
+	@Name VARCHAR(50)
+AS
+BEGIN
+	UPDATE Category
+	SET		[Name] = @Name
+	WHERE	Id = @Id
+
+	IF @@ROWCOUNT = 0
+	BEGIN
+		INSERT INTO [dbo].[Category] 
+			([Name])
+		VALUES 
+			(@Name)
+		SET @Id = CAST(SCOPE_IDENTITY() AS INT)
+	END;
+END;
+
+-- SaveProduct
+CREATE PROCEDURE [dbo].[SaveProduct]
+	@Id INT OUTPUT,
+	@CategoryId INT,
+	@Name VARCHAR(50)
+AS
+BEGIN
+	UPDATE Product
+	SET		CategoryId = @CategoryId,
+		    [Name] = @Name
+	WHERE	Id = @Id
+
+	IF @@ROWCOUNT = 0
+	BEGIN
+		INSERT INTO [dbo].[Product] 
+			(CategoryId,[Name])
+		VALUES 
+			(@CategoryId,@Name)
+		SET @Id = CAST(SCOPE_IDENTITY() AS INT)
+	END;
+END;
+
+-- DeleteCategory
+CREATE PROCEDURE [dbo].[DeleteCategory]
+	@Id INT 
+AS
+BEGIN
+	DELETE FROM Category
+	WHERE	Id = @Id
+END;
+
+-- DeleteProduct
+CREATE PROCEDURE [dbo].[DeleteProduct]
+	@Id INT 
+AS
+BEGIN
+	DELETE FROM Product
+	WHERE	Id = @Id
+END;
