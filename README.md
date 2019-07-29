@@ -35,4 +35,7 @@ Run database script from path ~/Data/ClothesStoreDapper_Initializer.sql
   - Sort
   - Include
   - Skip
-  -Take
+  - Take
+# References
+Dapper: Getting Started
+https://www.pluralsight.com/courses/getting-started-dapper
