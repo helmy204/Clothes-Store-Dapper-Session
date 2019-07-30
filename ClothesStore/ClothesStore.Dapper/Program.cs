@@ -35,7 +35,7 @@ namespace ClothesStore.Dapper
             #endregion CRUD Operations
 
             /* Check with Dapper.Contrib */
-            //Get_all_Should_return_10_results();
+            //Get_all_Should_return_10_categories();
 
             #region CRUD Operations Complex
 
@@ -63,7 +63,7 @@ namespace ClothesStore.Dapper
             //Insert_Should_assign_id_to_new_category_Complex();
 
             //ICategoryRepository repository = CreateRepository();
-            //int entityId = 1010;
+            //int entityId = 1013;
             //Find_Should_retrieve_existing_category_Complex(entityId);
 
             //Modify_Should_update_existing_category_Complex(entityId);
@@ -80,7 +80,7 @@ namespace ClothesStore.Dapper
             //GetTop10DynamicCategories_should_return_dynamic_categories();
 
             // Multi Mapping
-            GetAllCategoriesWithProducts_should_return_categories_with_products();
+            //GetAllCategoriesWithProducts_should_return_categories_with_products();
 
             #endregion Advanced
         }
@@ -287,8 +287,8 @@ namespace ClothesStore.Dapper
             var repository = CreateRepositoryAdvanced();
 
             // Act
-            var categories = repository.GetAllCategoriesWithProducts();
-            //var categories = repository.GetAllCategoriesWithProducts_Fixed();
+            //var categories = repository.GetAllCategoriesWithProducts();
+            var categories = repository.GetAllCategoriesWithProducts_Fixed();
 
             // Assert
             Debug.Assert(categories.Count > 0);
@@ -301,6 +301,12 @@ namespace ClothesStore.Dapper
             var repository = CreateRepositoryAdvanced();
 
             // Act
+            //int[] lst = new int[100];
+            //Parallel.ForEach(lst, (i) =>
+            // {
+            //     repository.GetAll();
+            // });
+
             var catalogs = await repository.GetAllAsync();
 
             // Assert

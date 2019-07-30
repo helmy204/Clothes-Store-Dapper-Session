@@ -12,9 +12,11 @@ namespace ClothesStore.Dapper.Data
     public class CategoryRepositoryAdvanced
     {
         private readonly IDbConnection db;
+        string connString = "";
 
         public CategoryRepositoryAdvanced(string connectionString)
         {
+            connString = connectionString;
             this.db = new SqlConnection(connectionString);
         }
 
@@ -73,6 +75,13 @@ namespace ClothesStore.Dapper.Data
         public async Task<List<Category>> GetAllAsync()
         {
             var categories = await this.db.QueryAsync<Category>("SELECT * FROM Category");
+            return categories.ToList();
+        }
+
+        public List<Category> GetAll()
+        {
+            IDbConnection db2 = new SqlConnection(connString);
+            var categories = db2.Query<Category>("SELECT * FROM Category");
             return categories.ToList();
         }
     }
