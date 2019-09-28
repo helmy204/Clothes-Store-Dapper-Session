@@ -36,6 +36,9 @@ Run database script from path ~/Data/ClothesStoreDapper_Initializer.sql
   - Include
   - Skip
   - Take
+# Session Video
+https://youtu.be/XKEBw8VDz8M
+
 # References
 Dapper: Getting Started
 https://www.pluralsight.com/courses/getting-started-dapper
